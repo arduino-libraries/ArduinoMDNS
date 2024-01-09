@@ -26,6 +26,8 @@ extern "C" {
 }
 
 #include <Arduino.h>
+#include <IPAddress.h>
+#include <Udp.h>
 
 typedef uint8_t byte;
 
