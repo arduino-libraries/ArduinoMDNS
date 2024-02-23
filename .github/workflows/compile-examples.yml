@@ -76,11 +76,6 @@ jobs:
               - name: arduino:samd
             type: ethernet
             artifact-name-suffix: arduino-samd-nano_33_iot
-          - fqbn: arduino:mbed_portenta:envie_m7:target_core=cm4
-            platforms: |
-              - name: arduino:mbed_portenta
-            type: ethernet
-            artifact-name-suffix: arduino-mbed_portenta-envie_m7-cm4
           - fqbn: arduino:mbed_portenta:envie_m7
             platforms: |
               - name: arduino:mbed_portenta
