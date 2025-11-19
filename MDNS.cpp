@@ -1385,13 +1385,26 @@ uint8_t* MDNS::_findFirstDotFromRight(const uint8_t* str)
    return (uint8_t*)&p[2];
 }
 
+// case-insensitive memcmp
+static int cimemcmp(const void *s1, const void *s2, size_t n)
+{
+   #define TO_LOWER(c) (c >= 'A' && c <= 'Z' ? c + ('a'-'A') : c)
+   for (size_t i = 0; i < n; i ++) {
+      uint8_t c1 = *((uint8_t*)s1+i), c2 = *((uint8_t*)s2+i);
+      int dc = TO_LOWER(c1) - TO_LOWER(c2);
+      if (dc) return dc;
+   }
+   return 0;
+   #undef TO_LOWER
+}
+
 int MDNS::_matchStringPart(const uint8_t** pCmpStr, int* pCmpLen, const uint8_t* buf,
                                            int dataLen)
 {
    int matches = 1;
 
    if (*pCmpLen >= dataLen)
-      matches &= (0 == memcmp(*pCmpStr, buf, dataLen));
+      matches &= (0 == cimemcmp(*pCmpStr, buf, dataLen));
    else
       matches = 0;
 
