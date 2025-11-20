@@ -1425,8 +1425,11 @@ void MDNS::_finishedResolvingName(char* name, const byte ipAddr[4])
          uint8_t* n = this->_findFirstDotFromRight((const uint8_t*)name);
          *(n-1) = '\0';
       }
-   
-      this->_nameFoundCallback((const char*)name, IPAddress(ipAddr));
+         
+      this->_nameFoundCallback(
+         (const char*)name, 
+         (NULL != ipAddr) ? IPAddress(ipAddr) : INADDR_NONE
+      );
    }
 
    my_free(this->_resolveNames[0]);
